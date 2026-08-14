@@ -93,7 +93,7 @@
                 top: 0;
                 left: 0;
                 right: 0;
-                z-index: 100;
+                z-index: 300;
                 background: rgba(15, 23, 42, 0.85);
                 backdrop-filter: blur(10px);
                 -webkit-backdrop-filter: blur(10px);
@@ -163,6 +163,29 @@
                 background: rgba(59, 130, 246, 0.12);
             }
 
+            #mainNav .nav-resume-btn {
+                font-family: "Rajdhani", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: white;
+                background: #3b82f6;
+                border: none;
+                border-bottom: 3px solid #1d4ed8;
+                padding: 8px 16px;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-left: 6px;
+                white-space: nowrap;
+                transition: transform 0.15s ease, border-bottom-width 0.15s ease;
+            }
+
+            #mainNav .nav-resume-btn:hover {
+                transform: translateY(1px);
+                border-bottom-width: 0;
+            }
+
             #mainNav .nav-link.active::after {
                 content: "";
                 position: absolute;
@@ -215,6 +238,11 @@
                     width: 100%;
                     text-align: left;
                     padding: 12px 14px;
+                }
+                #mainNav .nav-resume-btn {
+                    width: 100%;
+                    margin: 4px 0 0;
+                    text-align: center;
                 }
             }
 
@@ -308,7 +336,8 @@
                 text-transform: uppercase;
                 padding: 3px 10px;
                 border-radius: 999px;
-                margin-bottom: 10px;
+                margin-top: 6px;
+                margin-bottom: 18px;
                 background: rgba(249, 115, 22, 0.15);
                 border: 1px solid rgba(249, 115, 22, 0.4);
                 color: #fdba74;
@@ -445,6 +474,7 @@
                 background: #0f172a;
                 overflow-y: auto;
                 display: none;
+                padding-top: 64px;
                 animation: overlayIn 0.25s ease;
             }
 
@@ -509,6 +539,7 @@
                 background: #0f172a;
                 overflow-y: auto;
                 display: none;
+                padding-top: 64px;
                 animation: overlayIn 0.25s ease;
             }
 
@@ -523,7 +554,7 @@
 
             .back-btn {
                 position: sticky;
-                top: 0;
+                top: 64px;
                 z-index: 5;
                 display: inline-flex;
                 align-items: center;
@@ -3022,6 +3053,7 @@
                     <a href="#about" class="nav-link" data-section="about">About</a>
                     <a href="#projects" class="nav-link" data-section="projects">Projects</a>
                     <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                    <button type="button" id="navResumeBtn" class="nav-resume-btn">Resume</button>
                 </div>
             </div>
         </nav>
@@ -3034,8 +3066,10 @@
                                 <div class="flex justify-center md:justify-end order-2 md:order-1">
                                     <div class="relative w-full max-w-md md:max-w-lg" style="opacity: 1; transform: none;">
                                         <div class="relative bg-[#0F172A] rounded-[2rem] p-4 md:p-6 shadow-pop hover:shadow-pop-hover transition-shadow duration-200 z-10 border-4 border-blue-400 font-minecraft text-[16px] md:text-[20px]">
-                                            <div class="relative w-full aspect-[4/5] bg-black rounded-2xl overflow-hidden border-4 border-blue-900 shadow-inner  group">
-                                                <img alt="Profile" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500" src="images/profile pic.png">
+                                            <div class="relative w-full aspect-[4/5] bg-black rounded-2xl overflow-hidden border-4 border-blue-900 shadow-inner group">
+                                                <video autoplay muted loop playsinline poster="images/profile pic.png" class="absolute inset-0 block w-full h-full object-cover transition-opacity duration-500">
+                                                    <source src="images/profile-reel.mp4" type="video/mp4">
+                                                </video>
                                             </div>
                                             <div class="mt-4 flex justify-between items-end px-2 pb-1">
                                                 <div class="text-2xl md:text-4xl font-extrabold text-white -rotate-2 transform origin-bottom-left drop-shadow-sm uppercase">TANMAY NEEMA</div>
@@ -3051,14 +3085,9 @@
                                 </div>
                                 <div class="text-center md:text-left order-1 md:order-2">
                                     <div style="opacity: 1; transform: none;">
-                                        <div class="flex flex-col md:flex-row items-center md:items-center gap-3 mb-6 justify-center md:justify-start">
-                                            <div class="w-28 h-28 md:w-40 md:h-40 group cursor-pointer flex items-center justify-center">
-                                                <img alt="Logo" class="w-full h-full object-contain" src="images/logo.gif">
-                                            </div>
-                                            <div class="text-center md:text-left">
-                                                <div class="font-caveat text-[32px] md:text-[48px] text-toon-orange leading-none">Hi this is,</div>
-                                                <h1 class="font-display text-2xl md:text-5xl text-white drop-shadow-[0_4px_0_rgba(0,0,0,1)] tracking-wider mt-1">TANMAY</h1>
-                                            </div>
+                                        <div class="mb-6 text-center md:text-left">
+                                            <div class="font-caveat text-[32px] md:text-[48px] text-toon-orange leading-none">Hi this is,</div>
+                                            <h1 class="font-display text-3xl md:text-5xl text-white drop-shadow-[0_4px_0_rgba(0,0,0,1)] tracking-wider mt-1">TANMAY NEEMA</h1>
                                         </div>
                                         <div class="inline-block mb-6">
                                             <span class="font-caveat text-toon-orange font-bold tracking-wider text-2xl md:text-3xl">Technical Artist | Unity &amp; Unreal Tools Programmer</span>
@@ -3218,8 +3247,8 @@
                                                 </div>
                                                 <div class="flex flex-col items-start">
                                                     <span class="text-toon-blue font-bold text-sm mb-1">Global Game Jam</span>
-                                                    <h4 class="text-white font-bold text-lg leading-tight">Game Designer &amp; Programmer</h4>
-                                                    <p class="text-gray-400 text-sm mt-1">Built a full game solo team in 48 hours</p>
+                                                    <h4 class="text-white font-bold text-lg leading-tight">Programmer</h4>
+                                                    <p class="text-gray-400 text-sm mt-1">Programmed and shipped a fully playable game in 48 hours as part of a cross-disciplinary team</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -3269,7 +3298,13 @@
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto rotate-2 translate-x-4 z-10">
                                             <div class="relative w-full h-28 bg-white rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-black/20 rounded-lg pointer-events-none"></div>
-                                                <h3 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">Rigging &amp; Animation</h3>
+                                <h3 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">Rigging &amp; Animation</h3>
+                                            </div>
+                                        </div>
+                                        <div class="w-full max-w-full sm:max-w-[360px] mx-auto -rotate-3 -translate-x-3 z-10">
+                                            <div class="relative w-full h-28 bg-toon-orange rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                                <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-lg pointer-events-none"></div>
+                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">Shader Development</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -3314,7 +3349,7 @@
                                             </div>
                                             <div class="flex flex-col items-center gap-2">
                                                 <div class="w-16 h-16 bg-[#fdf6e3] rounded-2xl flex items-center justify-center p-3 shadow-pop hover:shadow-pop-hover transition-shadow duration-200 border-b-4 border-[#e6dbb9]">
-                                                    <img alt="Unreal Engine" class="w-full h-full object-contain" src="icons/unreal.svg">
+                                                    <img alt="Unreal Engine" class="w-full h-full object-contain" src="https://cdn.simpleicons.org/unrealengine/000000">
                                                 </div>
                                                 <span class="text-xs text-gray-200 font-bold">Unreal Engine</span>
                                             </div>
@@ -3344,13 +3379,13 @@
                                             </div>
                                             <div class="flex flex-col items-center gap-2">
                                                 <div class="w-16 h-16 bg-[#fdf6e3] rounded-2xl flex items-center justify-center p-3 shadow-pop hover:shadow-pop-hover transition-shadow duration-200 border-b-4 border-[#e6dbb9]">
-                                                    <img alt="Substance Designer" class="w-full h-full object-contain" src="icons/substance-designer.svg">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full object-contain" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path><path d="M12 12v10"></path></svg>
                                                 </div>
                                                 <span class="text-xs text-gray-200 font-bold">Substance Designer</span>
                                             </div>
                                             <div class="flex flex-col items-center gap-2">
                                                 <div class="w-16 h-16 bg-[#fdf6e3] rounded-2xl flex items-center justify-center p-3 shadow-pop hover:shadow-pop-hover transition-shadow duration-200 border-b-4 border-[#e6dbb9]">
-                                                    <img alt="Premiere Pro" class="w-full h-full object-contain" src="icons/premiere.svg">
+                                                    <img alt="Premiere Pro" class="w-full h-full object-contain" src="https://cdn.simpleicons.org/adobepremierepro/9999FF">
                                                 </div>
                                                 <span class="text-xs text-gray-200 font-bold">Premiere Pro</span>
                                             </div>
@@ -3385,13 +3420,13 @@
                                             </div>
                                             <div class="flex flex-col items-center gap-1 opacity-90 hover:opacity-100">
                                                 <div class="w-12 h-12 bg-[#2d3748] rounded-xl flex items-center justify-center p-2 border-b-2 border-black/40 shadow-sm">
-                                                    <img alt="Miro" class="w-full h-full object-contain filter brightness-90 grayscale-[20%]" src="icons/miro.svg">
+                                                    <img alt="Miro" class="w-full h-full object-contain filter brightness-90 grayscale-[20%]" src="https://cdn.simpleicons.org/miro/FFD02F">
                                                 </div>
                                                 <span class="text-[10px] text-gray-400 font-bold">Miro</span>
                                             </div>
                                             <div class="flex flex-col items-center gap-1 opacity-90 hover:opacity-100">
                                                 <div class="w-12 h-12 bg-[#2d3748] rounded-xl flex items-center justify-center p-2 border-b-2 border-black/40 shadow-sm">
-                                                    <img alt="Diversion" class="w-full h-full object-contain filter brightness-90 grayscale-[20%]" src="icons/diversion.svg">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full object-contain filter brightness-90 grayscale-[20%] text-gray-200" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
                                                 </div>
                                                 <span class="text-[10px] text-gray-400 font-bold">Diversion</span>
                                             </div>
@@ -3442,96 +3477,50 @@
                                     <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="games" data-featured="true">
                                         <span class="featured-badge">★ Featured</span>
                                         <span class="category-pill">Games</span>
-                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black">
-                                            <video src="images/Shadow.MP4" class="w-full h-full object-cover" muted loop playsinline></video>
+                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z"></path><line x1="6" x2="6" y1="2" y2="4"></line><line x1="10" x2="10" y1="2" y2="4"></line><line x1="14" x2="14" y1="2" y2="4"></line></svg>
                                         </div>
-                                        <h3 class="font-display text-xl text-toon-blue mb-2">Shadow of ME VR
-                            </h3>
-                                        <p class="text-gray-200 mb-6">Psychological VR horror where players uncover hidden truths through environmental puzzles , Dual World and immersive exploration.
-                            </p>
+                                        <h3 class="font-display text-xl text-toon-blue mb-2">Aaji vs Mumbai: The Last Chai</h3>
+                                        <p class="text-gray-200 mb-6">A wave-based game built on a custom visual node system that drives its core mechanics, backed by a suite of procedural world-building tools — spline footpaths, foliage scatter, and physics-based wiring.</p>
                                         <div class="flex flex-wrap gap-2 mb-4">
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">VR</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Horror</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Puzzle Systems</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">C#</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Node-Based Architecture</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Procedural Generation</span>
                                         </div>
-                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="https://js-gaming-studios.itch.io/shadow-of-me-vr" data-label="PLAY">VIEW PROJECT
-                            </button>
+                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="#" data-label="In Development">VIEW PROJECT</button>
                                     </div>
                                     <!-- CARD 2 -->
                                     <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="games">
                                         <span class="category-pill">Games</span>
-                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black">
-                                            <img src="images/XRcise.jpg" class="w-full h-full object-cover">
+                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.287 1.288L3 12l5.8 1.9a2 2 0 0 1 1.288 1.287L12 21l1.9-5.8a2 2 0 0 1 1.287-1.288L21 12l-5.8-1.9a2 2 0 0 1-1.288-1.287Z"></path></svg>
                                         </div>
-                                        <h3 class="font-display text-xl text-toon-blue mb-2">XRcise
-                            </h3>
-                                        <p class="text-gray-200 mb-6">AI powered VR physiotherapy system with exercise detection, Recommendation and real time feedback using MediaPipe and OpenCV.
-                            </p>
+                                        <h3 class="font-display text-xl text-toon-blue mb-2">Hoppity-Hop</h3>
+                                        <p class="text-gray-200 mb-6">Built enemy AI and NPC behaviors for seamless player interaction, alongside a responsive 3D HUD and a scalable dialogue system, in Unreal Engine 5.7.</p>
                                         <div class="flex flex-wrap gap-2 mb-4">
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Python</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">VR</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Computer Vision</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unreal Engine 5.7</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Blueprints/C++</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">AI Behavior Trees</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">UI/UMG</span>
                                         </div>
-                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="https://drive.google.com/file/d/1PvyfN-6fnAb4UFHUYF19eZVFOPltW57Q/view?usp=sharing" data-label="View Demo">VIEW PROJECT
-                            </button>
+                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="#" data-label="In Development">VIEW PROJECT</button>
                                     </div>
                                     <!-- CARD 3 -->
                                     <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="games">
                                         <span class="category-pill">Games</span>
-                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black">
-                                            <video src="images/sanskritverse.MP4" class="w-full h-full object-cover" muted loop playsinline></video>
+                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M14.5 4.5 8 11l1.5 1.5 6.5-6.5"></path><path d="m21 3-2.5 2.5"></path><path d="M9 15 4 20"></path><path d="M12.5 6.5 6 13"></path><circle cx="6" cy="18" r="2"></circle></svg>
                                         </div>
-                                        <h3 class="font-display text-xl text-toon-blue mb-2">Sanskritverse
-                            </h3>
-                                        <p class="text-gray-200 mb-6">VR educational game teaching Sanskrit vocabulary using interactive environments Puzzles in Meta Quest Headset.
-                            </p>
+                                        <h3 class="font-display text-xl text-toon-blue mb-2">Lumin</h3>
+                                        <p class="text-gray-200 mb-6">Selected for IGDC 2025 — an interactive pan/zoom camera and photo-capture mechanic tied into a custom UI journal and quest system, with hand-authored prototype shaders.</p>
                                         <div class="flex flex-wrap gap-2 mb-4">
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Mixed Reality</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Gamification</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Education</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity 2D</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">C#</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">UI/UX Architecture</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Shaders R&amp;D</span>
                                         </div>
-                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="https://drive.google.com/file/d/1jfTasVQ_rELeowFPCjY7VEc-WrPtPE-b/view?usp=sharing" data-label="View Demo">VIEW PROJECT
-                            </button>
-                                    </div>
-                                    <!-- CARD 4 -->
-                                    <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="games">
-                                        <span class="category-pill">Games</span>
-                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black">
-                                            <img src="images/elemental.gif" class="w-full h-full object-cover">
-                                        </div>
-                                        <h3 class="font-display text-xl text-toon-blue mb-2">Elemental Escape
-                            </h3>
-                                        <p class="text-gray-200 mb-6">2D Chemestry Puzzle Escape room game where players manipulate elemental properties to solve puzzles and escape the room.
-                            </p>
-                                        <div class="flex flex-wrap gap-2 mb-4">
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">2D</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Escape Room</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">WebGL</span>
-                                        </div>
-                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="https://js-gaming-studios.itch.io/elemental-escape" data-label="PLAY">VIEW PROJECT
-                            </button>
-                                    </div>
-                                    <!-- CARD 5 -->
-                                    <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="games">
-                                        <span class="category-pill">Games</span>
-                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black bg-black">
-                                            <video src="images/XtremeLegends.MP4" class="w-full h-full object-cover" muted loop playsinline></video>
-                                        </div>
-                                        <h3 class="font-display text-xl text-toon-blue mb-2">Xtreme Legends
-                            </h3>
-                                        <p class="text-gray-200 mb-6">fast-paced stunt racing game where players perform extreme jumps, drifts, and mid-air tricks across challenging tracks
-                            </p>
-                                        <div class="flex flex-wrap gap-2 mb-4">
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Racing</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Mobile</span>
-                                        </div>
-                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="#" data-label="Under Development">VIEW PROJECT
-                            </button>
+                                        <button type="button" class="project-open-btn bg-[#fa5c5c] border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:bg-[#ff4646]" data-href="#" data-label="IGDC 2025 Selection">VIEW PROJECT</button>
                                     </div>
                                 </div>
                                 <div class="show-more-row" data-show-more-for="games">
@@ -3568,7 +3557,7 @@
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Editor Scripting</span>
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Node-Based Architecture</span>
                                         </div>
-                                        <button type="button" class="bg-white/10 border-2 border-black rounded-lg py-2 px-4 text-gray-400 font-display cursor-not-allowed" disabled>AAJI VS MUMBAI</button>
+                                        <button type="button" class="project-open-btn bg-toon-blue border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:brightness-110" data-href="#" data-label="View Details">VIEW PROJECT</button>
                                     </div>
                                     <!-- TOOL 2: Footpath Builder Tool -->
                                     <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="editor-tools">
@@ -3583,7 +3572,7 @@
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Spline Logic</span>
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Procedural Generation</span>
                                         </div>
-                                        <button type="button" class="bg-white/10 border-2 border-black rounded-lg py-2 px-4 text-gray-400 font-display cursor-not-allowed" disabled>AAJI VS MUMBAI</button>
+                                        <button type="button" class="project-open-btn bg-toon-blue border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:brightness-110" data-href="#" data-label="View Details">VIEW PROJECT</button>
                                     </div>
                                     <!-- TOOL 3: Vegetation Scatter & World Building -->
                                     <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="editor-tools">
@@ -3598,7 +3587,7 @@
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Procedural Generation</span>
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Level Design Pipeline</span>
                                         </div>
-                                        <button type="button" class="bg-white/10 border-2 border-black rounded-lg py-2 px-4 text-gray-400 font-display cursor-not-allowed" disabled>AAJI VS MUMBAI</button>
+                                        <button type="button" class="project-open-btn bg-toon-blue border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:brightness-110" data-href="#" data-label="View Details">VIEW PROJECT</button>
                                     </div>
                                     <!-- TOOL 4: Procedural Wire Tool -->
                                     <div class="project-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="editor-tools">
@@ -3613,7 +3602,7 @@
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Physics Simulation</span>
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Procedural Generation</span>
                                         </div>
-                                        <button type="button" class="bg-white/10 border-2 border-black rounded-lg py-2 px-4 text-gray-400 font-display cursor-not-allowed" disabled>AAJI VS MUMBAI</button>
+                                        <button type="button" class="project-open-btn bg-toon-blue border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:brightness-110" data-href="#" data-label="View Details">VIEW PROJECT</button>
                                     </div>
                                 </div>
                                 <div class="show-more-row" data-show-more-for="editor-tools">
@@ -3840,11 +3829,25 @@
                             });
                         });
 
-                        document.getElementById("resumeBtn").addEventListener("click", function() {
+                        function downloadResume() {
                             const link = document.createElement("a");
                             link.href = "Resume/Tanmay_Neema_Resume.pdf";
                             link.download = "Tanmay_Neema_Resume.pdf";
                             link.click();
+                        }
+
+                        document.getElementById("resumeBtn").addEventListener("click", downloadResume);
+                        document.getElementById("navResumeBtn").addEventListener("click", downloadResume);
+
+                        /* Top bar stays visible above the project / category subpages
+                           (see #mainNav z-index); clicking a nav link should close
+                           whichever subpage is open first, so Home/About/Projects/Contact
+                           actually scroll into view instead of being hidden behind it. */
+                        document.querySelectorAll('#mainNav .nav-link').forEach(function (link) {
+                            link.addEventListener('click', function () {
+                                if (typeof closeProjectDetail === 'function') closeProjectDetail(false);
+                                if (typeof closeCategoryPage === 'function') closeCategoryPage(false);
+                            });
                         });
 
                         document.getElementById("contactForm").addEventListener("submit", function(e) {
