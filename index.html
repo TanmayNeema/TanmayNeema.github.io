@@ -610,149 +610,6 @@
                 transition: transform 0.15s ease-out;
             }
 
-            /* ===================== COMMAND TERMINAL ===================== */
-            #terminalTrigger {
-                position: fixed;
-                right: 22px;
-                bottom: 22px;
-                z-index: 320;
-                width: 52px;
-                height: 52px;
-                border-radius: 50%;
-                background: #14181f;
-                border: 3px solid black;
-                color: #34d399;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.5);
-                font-family: "Courier New", monospace;
-                font-weight: 800;
-                font-size: 20px;
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
-            }
-
-            #terminalTrigger:hover {
-                transform: translate(-2px, -2px);
-                box-shadow: 7px 7px 0px 0px rgba(0,0,0,0.5);
-            }
-
-            #terminalTrigger .terminal-trigger-pulse {
-                position: absolute;
-                inset: -4px;
-                border-radius: 50%;
-                border: 2px solid rgba(52, 211, 153, 0.5);
-                animation: terminalPulse 2.4s ease-out infinite;
-            }
-
-            @keyframes terminalPulse {
-                0% { transform: scale(0.85); opacity: 0.8; }
-                100% { transform: scale(1.5); opacity: 0; }
-            }
-
-            #terminalOverlay {
-                position: fixed;
-                inset: 0;
-                z-index: 400;
-                background: rgba(5, 7, 12, 0.7);
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-                display: none;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
-            }
-
-            #terminalOverlay.open {
-                display: flex;
-            }
-
-            .terminal-window {
-                width: 100%;
-                max-width: 640px;
-                max-height: 72vh;
-                background: #05070c;
-                border: 3px solid black;
-                border-radius: 14px;
-                box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.5);
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-                font-family: "Courier New", monospace;
-            }
-
-            .terminal-titlebar {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                padding: 10px 14px;
-                background: #14181f;
-                border-bottom: 3px solid black;
-                flex-shrink: 0;
-            }
-
-            .terminal-titlebar-label {
-                margin-left: 8px;
-                font-size: 12px;
-                color: rgba(255,255,255,0.4);
-            }
-
-            .terminal-close {
-                margin-left: auto;
-                background: transparent;
-                border: none;
-                color: rgba(255,255,255,0.5);
-                cursor: pointer;
-                font-size: 16px;
-                line-height: 1;
-                padding: 2px 6px;
-            }
-
-            .terminal-close:hover { color: white; }
-
-            .terminal-body {
-                flex: 1;
-                overflow-y: auto;
-                padding: 16px;
-                font-size: 13px;
-                line-height: 1.7;
-                color: #93c5fd;
-            }
-
-            .terminal-body .t-line { white-space: pre-wrap; word-break: break-word; margin: 0 0 2px; }
-            .terminal-body .t-prompt { color: #34d399; }
-            .terminal-body .t-cmd { color: #f8fafc; }
-            .terminal-body .t-dim { color: #64748b; }
-            .terminal-body .t-orange { color: #fb923c; }
-
-            .terminal-input-row {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                padding: 10px 16px 16px;
-                flex-shrink: 0;
-            }
-
-            .terminal-input-row .t-prompt {
-                color: #34d399;
-                font-size: 13px;
-            }
-
-            #terminalInput {
-                flex: 1;
-                background: transparent;
-                border: none;
-                outline: none;
-                color: #f8fafc;
-                font-family: "Courier New", monospace;
-                font-size: 13px;
-            }
-
-            @media (max-width: 640px) {
-                #terminalTrigger { right: 14px; bottom: 14px; width: 46px; height: 46px; font-size: 17px; }
-            }
-
             /* ===================== ABOUT: STAT STRIP ===================== */
             .stat-strip {
                 display: grid;
@@ -842,59 +699,6 @@
             #about .bg-\[\#fdf6e3\]:hover,
             #about .bg-\[\#2d3748\]:hover {
                 transform: scale(1.1) rotate(-4deg);
-            }
-
-            /* ===================== BOOT SEQUENCE (first visit only) ===================== */
-            #bootSequence {
-                position: fixed;
-                inset: 0;
-                z-index: 900;
-                background: #05070c;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                gap: 24px;
-                cursor: pointer;
-                transition: opacity 0.5s ease;
-            }
-
-            #bootSequence.boot-done {
-                opacity: 0;
-                pointer-events: none;
-            }
-
-            .boot-lines {
-                font-family: "Courier New", monospace;
-                font-size: 14px;
-                color: #34d399;
-                line-height: 1.9;
-                min-height: 140px;
-                width: 90%;
-                max-width: 460px;
-            }
-
-            @keyframes cursorBlink {
-                0%, 50% { opacity: 1; }
-                50.01%, 100% { opacity: 0; }
-            }
-
-            .boot-line::after {
-                content: "▌";
-                animation: cursorBlink 0.8s steps(1) infinite;
-                margin-left: 2px;
-            }
-
-            .boot-line:not(:last-child)::after {
-                content: "";
-            }
-
-            .boot-skip {
-                font-family: "Rajdhani", sans-serif;
-                font-size: 11px;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: rgba(255,255,255,0.3);
             }
 
             /* ===================== SOUND TOGGLE ===================== */
@@ -2199,6 +2003,21 @@
                     padding: 12px 20px;
                     font-size: 12px;
                 }
+
+                #quickNavWrap {
+                    right: 16px;
+                    bottom: 16px;
+                }
+
+                #backToTop {
+                    width: 48px;
+                    height: 48px;
+                }
+
+                .quick-nav-menu .quick-nav-item {
+                    font-size: 12px;
+                    padding: 9px 14px;
+                }
             }
 
             /* ===================== MEDIA PLACEHOLDER ===================== */
@@ -2270,11 +2089,82 @@
             }
 
             /* ===================== BACK TO TOP ===================== */
-            #backToTop {
+            #quickNavWrap {
                 position: fixed;
                 right: 24px;
                 bottom: 24px;
                 z-index: 90;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 10px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease;
+            }
+
+            #quickNavWrap.visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .quick-nav-menu {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+                opacity: 0;
+                transform: translateY(8px);
+                pointer-events: none;
+                transition: opacity 0.18s ease, transform 0.18s ease;
+            }
+
+            /* Desktop: reveal on hover of the whole button+menu group. */
+            @media (hover: hover) and (pointer: fine) {
+                #quickNavWrap:hover .quick-nav-menu {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                }
+            }
+
+            /* Touch / no-hover devices: reveal via tap, toggled in JS. */
+            .quick-nav-menu.open {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            .quick-nav-menu .quick-nav-item {
+                font-family: "Rajdhani", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: #f8fafc;
+                background: rgba(15, 23, 42, 0.95);
+                border: 2px solid black;
+                border-radius: 999px;
+                padding: 8px 16px;
+                white-space: nowrap;
+                box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.5);
+                text-decoration: none;
+                transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+            }
+
+            .quick-nav-menu .quick-nav-item:hover,
+            .quick-nav-menu .quick-nav-item:focus-visible {
+                transform: translateX(-2px);
+                background: #1e293b;
+            }
+
+            .quick-nav-menu .quick-nav-item.active {
+                background: #3b82f6;
+                border-color: #1d4ed8;
+                color: white;
+            }
+
+            #backToTop {
                 width: 52px;
                 height: 52px;
                 border-radius: 50%;
@@ -2282,22 +2172,26 @@
                 border: 3px solid black;
                 box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.5);
                 color: white;
-                display: none;
+                display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                transition: transform 0.15s ease, opacity 0.2s ease;
-                opacity: 0;
+                transition: transform 0.15s ease;
+                flex-shrink: 0;
             }
 
-            #backToTop.visible {
-                display: flex;
-                opacity: 1;
-            }
-
-            #backToTop:hover {
+            #backToTop:hover,
+            #backToTop.menu-open {
                 transform: translate(-2px, -2px);
                 box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.5);
+            }
+
+            #backToTop svg {
+                transition: transform 0.2s ease;
+            }
+
+            #backToTop.menu-open svg {
+                transform: rotate(180deg);
             }
         </style>
         <style>
@@ -4641,36 +4535,11 @@
         </style>
     </head>
     <body>
-        <div id="bootSequence">
-            <div class="boot-lines" id="bootLines"></div>
-            <div class="boot-skip">click anywhere to skip</div>
-        </div>
         <canvas id="bgNetwork"></canvas>
         <div id="scrollProgress"></div>
         <div id="cursorDot"></div>
         <div id="cursorRing"></div>
         <div id="subpageChapterNav" class="subpage-chapter-nav"></div>
-
-        <button type="button" id="terminalTrigger" aria-label="Open command terminal">
-            <span class="terminal-trigger-pulse"></span>
-            <span>&gt;_</span>
-        </button>
-        <div id="terminalOverlay">
-            <div class="terminal-window">
-                <div class="terminal-titlebar">
-                    <span class="cp-code-dot red"></span><span class="cp-code-dot yellow"></span><span class="cp-code-dot green"></span>
-                    <span class="terminal-titlebar-label">tanmay@portfolio: ~</span>
-                    <button type="button" class="terminal-close" id="terminalClose" aria-label="Close terminal">✕</button>
-                </div>
-                <div class="terminal-body" id="terminalBody">
-                    <p class="t-line t-dim">Portfolio Shell v1.0 — type <span class="t-cmd">help</span> to see what this does.</p>
-                </div>
-                <div class="terminal-input-row">
-                    <span class="t-prompt">tanmay@portfolio:~$</span>
-                    <input type="text" id="terminalInput" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
-                </div>
-            </div>
-        </div>
 
         <nav id="mainNav">
             <div class="nav-inner">
@@ -6285,9 +6154,17 @@
                             </footer>
                         </div>
                     </section>
-                    <button type="button" id="backToTop" aria-label="Back to top">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-                    </button>
+                    <div id="quickNavWrap">
+                        <div class="quick-nav-menu" id="quickNavMenu">
+                            <a href="#hero" class="nav-link quick-nav-item" data-section="hero">Home</a>
+                            <a href="#about" class="nav-link quick-nav-item" data-section="about">About</a>
+                            <a href="#projects" class="nav-link quick-nav-item" data-section="projects">Projects</a>
+                            <a href="#contact" class="nav-link quick-nav-item" data-section="contact">Contact</a>
+                        </div>
+                        <button type="button" id="backToTop" aria-label="Quick navigation" aria-haspopup="true" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                        </button>
+                    </div>
                     <!-- ===================== PROJECT DETAIL "SUBPAGE" OVERLAY ===================== -->
                     <div id="projectDetailOverlay">
                         <button type="button" id="projectDetailBack" class="back-btn">
@@ -6444,15 +6321,48 @@
                         })();
 
                         /* =====================================================
-                           BACK TO TOP
+                           QUICK NAV — a floating button that appears on
+                           scroll. Desktop: hovering reveals section shortcuts
+                           (handled in CSS). Touch: tapping the button toggles
+                           the same menu open, since there's no hover to rely
+                           on. Clicking the button itself with the menu closed
+                           scrolls to top, matching the original "back to top"
+                           behavior recruiters expect from the arrow icon.
                         ===================================================== */
-                        (function initBackToTop() {
+                        (function initQuickNav() {
+                            var wrap = document.getElementById("quickNavWrap");
                             var btn = document.getElementById("backToTop");
+                            var menu = document.getElementById("quickNavMenu");
+                            var isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
                             window.addEventListener("scroll", function () {
-                                btn.classList.toggle("visible", window.scrollY > 500);
+                                wrap.classList.toggle("visible", window.scrollY > 500);
                             });
+
+                            function closeMenu() {
+                                menu.classList.remove("open");
+                                btn.classList.remove("menu-open");
+                                btn.setAttribute("aria-expanded", "false");
+                            }
+
                             btn.addEventListener("click", function () {
-                                window.scrollTo({ top: 0, behavior: "smooth" });
+                                if (isTouch) {
+                                    var willOpen = !menu.classList.contains("open");
+                                    menu.classList.toggle("open", willOpen);
+                                    btn.classList.toggle("menu-open", willOpen);
+                                    btn.setAttribute("aria-expanded", String(willOpen));
+                                    if (!willOpen) window.scrollTo({ top: 0, behavior: "smooth" });
+                                } else {
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }
+                            });
+
+                            menu.querySelectorAll(".quick-nav-item").forEach(function (item) {
+                                item.addEventListener("click", closeMenu);
+                            });
+
+                            document.addEventListener("click", function (e) {
+                                if (!wrap.contains(e.target)) closeMenu();
                             });
                         })();
 
@@ -6582,7 +6492,7 @@
                             //     (skipped on real interactive elements so it
                             //     doesn't fight with button/card feedback). ---
                             var bursts = [];
-                            var BURST_SKIP_SELECTOR = "a, button, input, textarea, select, .spotlight, .project-card, .quick-work-tile, #terminalOverlay, .cp-bullets li";
+                            var BURST_SKIP_SELECTOR = "a, button, input, textarea, select, .spotlight, .project-card, .quick-work-tile, .cp-bullets li";
                             window.addEventListener("click", function (e) {
                                 if (e.target.closest && e.target.closest(BURST_SKIP_SELECTOR)) return;
                                 bursts.push({ x: e.clientX, y: e.clientY, start: performance.now() });
@@ -6724,71 +6634,6 @@
                         })();
 
                         /* =====================================================
-                           BOOT SEQUENCE — a quick terminal-style intro that
-                           plays once per browser session, then gets out of
-                           the way. Click/tap anywhere skips it instantly.
-                        ===================================================== */
-                        (function initBootSequence() {
-                            var boot = document.getElementById("bootSequence");
-                            if (!boot) return;
-
-                            var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                            var alreadySeen = false;
-                            try { alreadySeen = sessionStorage.getItem("bootSeen") === "1"; } catch (e) {}
-
-                            if (alreadySeen || reduceMotion) {
-                                boot.remove();
-                                return;
-                            }
-
-                            document.body.classList.add("no-scroll");
-                            var linesEl = document.getElementById("bootLines");
-                            var lines = [
-                                "> booting portfolio.exe",
-                                "> compiling shaders... OK",
-                                "> loading editor tools... OK",
-                                "> initializing technical artist runtime",
-                                "> welcome — scroll to explore."
-                            ];
-                            var li = 0, ci = 0, finished = false;
-
-                            function typeNext() {
-                                if (finished) return;
-                                if (li >= lines.length) { finish(); return; }
-                                var lineDiv = document.createElement("div");
-                                lineDiv.className = "boot-line";
-                                linesEl.appendChild(lineDiv);
-                                var text = lines[li];
-                                function typeChar() {
-                                    if (finished) return;
-                                    if (ci <= text.length) {
-                                        lineDiv.textContent = text.slice(0, ci);
-                                        ci++;
-                                        setTimeout(typeChar, 14);
-                                    } else {
-                                        li++; ci = 0;
-                                        setTimeout(typeNext, 160);
-                                    }
-                                }
-                                typeChar();
-                            }
-
-                            function finish() {
-                                if (finished) return;
-                                finished = true;
-                                try { sessionStorage.setItem("bootSeen", "1"); } catch (e) {}
-                                setTimeout(function () {
-                                    boot.classList.add("boot-done");
-                                    document.body.classList.remove("no-scroll");
-                                    setTimeout(function () { boot.remove(); }, 550);
-                                }, 300);
-                            }
-
-                            boot.addEventListener("click", finish);
-                            typeNext();
-                        })();
-
-                        /* =====================================================
                            SOUND SYSTEM — tiny synthesized UI blips via the Web
                            Audio API (no audio files). Off by default; a nav
                            toggle turns it on, preference remembered.
@@ -6853,7 +6698,7 @@
                             });
 
                             if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-                                var hoverSelector = ".nav-link, .magnetic-btn, .project-card, .quick-work-tile, #terminalTrigger, .subpage-chapter-dot, .show-more-btn";
+                                var hoverSelector = ".nav-link, .magnetic-btn, .project-card, .quick-work-tile, #backToTop, .subpage-chapter-dot, .show-more-btn";
                                 document.addEventListener("mouseover", function (e) {
                                     var el = e.target.closest ? e.target.closest(hoverSelector) : null;
                                     if (!el) return;
@@ -6866,7 +6711,7 @@
                                 });
                             }
                             document.addEventListener("click", function (e) {
-                                var el = e.target.closest ? e.target.closest(".project-open-btn, #terminalTrigger, #resumeBtn, #navResumeBtn") : null;
+                                var el = e.target.closest ? e.target.closest(".project-open-btn, #resumeBtn, #navResumeBtn") : null;
                                 if (el) playUiSound("click");
                             });
                         })();
@@ -6907,130 +6752,6 @@
                             });
                         })();
 
-                        /* =====================================================
-                           COMMAND TERMINAL — a real, typeable easter egg.
-                           Opens via the floating >_ button or the ` key, and
-                           its commands actually do things (scroll, open the
-                           resume, switch shaders) rather than just print text.
-                        ===================================================== */
-                        (function initTerminal() {
-                            var trigger = document.getElementById("terminalTrigger");
-                            var overlay = document.getElementById("terminalOverlay");
-                            var closeBtn = document.getElementById("terminalClose");
-                            var body = document.getElementById("terminalBody");
-                            var input = document.getElementById("terminalInput");
-                            if (!trigger || !overlay || !input) return;
-
-                            function print(html, cls) {
-                                var p = document.createElement("p");
-                                p.className = "t-line" + (cls ? " " + cls : "");
-                                p.innerHTML = html;
-                                body.appendChild(p);
-                                body.scrollTop = body.scrollHeight;
-                            }
-
-                            function openTerminal() {
-                                overlay.classList.add("open");
-                                document.body.classList.add("no-scroll");
-                                playUiSound("open");
-                                setTimeout(function () { input.focus(); }, 50);
-                            }
-
-                            function closeTerminal() {
-                                overlay.classList.remove("open");
-                                playUiSound("close");
-                                var anyOtherOpen = document.getElementById("projectDetailOverlay").classList.contains("open") ||
-                                    document.getElementById("categoryPageOverlay").classList.contains("open");
-                                if (!anyOtherOpen) document.body.classList.remove("no-scroll");
-                            }
-
-                            trigger.addEventListener("click", openTerminal);
-                            closeBtn.addEventListener("click", closeTerminal);
-                            overlay.addEventListener("click", function (e) {
-                                if (e.target === overlay) closeTerminal();
-                            });
-
-                            document.addEventListener("keydown", function (e) {
-                                if (e.key === "`" && !overlay.classList.contains("open")) {
-                                    e.preventDefault();
-                                    openTerminal();
-                                } else if (e.key === "Escape" && overlay.classList.contains("open")) {
-                                    closeTerminal();
-                                }
-                            });
-
-                            function goTo(id) {
-                                closeTerminal();
-                                setTimeout(function () {
-                                    var el = document.getElementById(id);
-                                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                                }, 150);
-                            }
-
-                            var commands = {
-                                help: function () {
-                                    print('<span class="t-orange">Available commands:</span>');
-                                    print('  <span class="t-cmd">about</span>       — who I am');
-                                    print('  <span class="t-cmd">skills</span>      — tech stack');
-                                    print('  <span class="t-cmd">projects</span>    — jump to work');
-                                    print('  <span class="t-cmd">resume</span>      — download my resume');
-                                    print('  <span class="t-cmd">contact</span>     — jump to contact form');
-                                    print('  <span class="t-cmd">sudo hire tanmay</span>');
-                                    print('  <span class="t-cmd">clear</span>       — clear this terminal');
-                                },
-                                about: function () {
-                                    print("Technical Artist — Unity &amp; Unreal, custom tools, shaders, procedural systems.");
-                                    goTo("about");
-                                },
-                                skills: function () {
-                                    print("Unity · Unreal Engine · C# · Maya · Shader Graph / HLSL · VFX Graph · Editor Tooling");
-                                    goTo("about");
-                                },
-                                projects: function () {
-                                    print("Opening projects section...");
-                                    goTo("projects");
-                                },
-                                resume: function () {
-                                    print("Downloading resume...");
-                                    if (typeof downloadResume === "function") downloadResume();
-                                },
-                                contact: function () {
-                                    print("Opening contact form...");
-                                    goTo("contact");
-                                },
-                                clear: function () {
-                                    body.innerHTML = "";
-                                },
-                                whoami: function () {
-                                    print("tanmay-neema — technical artist, probably tweaking a shader graph right now.");
-                                }
-                            };
-
-                            input.addEventListener("keydown", function (e) {
-                                if (e.key !== "Enter") return;
-                                var raw = input.value.trim();
-                                input.value = "";
-                                if (!raw) return;
-
-                                print('<span class="t-prompt">tanmay@portfolio:~$</span> <span class="t-cmd">' + raw.replace(/</g, "&lt;") + "</span>");
-
-                                var parts = raw.toLowerCase().split(/\s+/);
-                                var cmd = parts[0];
-
-                                if (cmd === "sudo" && raw.toLowerCase().indexOf("hire tanmay") !== -1) {
-                                    print('<span class="t-orange">Permission granted. Great choice. 🚀</span>');
-                                    goTo("contact");
-                                    return;
-                                }
-
-                                var handler = commands[cmd];
-                                if (handler) {
-                                    handler(parts[1]);
-                                } else {
-                                    print('<span class="t-dim">command not found: ' + cmd + " — try </span><span class=\"t-cmd\">help</span>");
-                                }
-                            });
-                        })();
 
                         /* =====================================================
                            SCROLL PROGRESS BAR — thin gradient bar under the
@@ -7422,7 +7143,7 @@
                                 tile.appendChild(meta);
 
                                 tile.addEventListener("click", function () {
-                                    if (typeof openProjectDetail === "function") openProjectDetail(card, true);
+                                    if (typeof openProjectDetail === "function") openProjectDetail(card, true, true);
                                 });
 
                                 strip.appendChild(tile);
@@ -7477,6 +7198,7 @@
                             var playFloat = document.getElementById("projectDetailPlayFloat");
                             var playFloatLabel = document.getElementById("projectDetailPlayFloatLabel");
                             var openedFromCategoryPage = false;
+                            var openedFromQuickWork = false;
 
                             function buildDetailHTML(card) {
                                 var media = card.querySelector(".h-48 video, .h-48 img");
@@ -7562,9 +7284,10 @@
                                 return null;
                             }
 
-                            openProjectDetail = function (card, pushHistory) {
+                            openProjectDetail = function (card, pushHistory, fromQuickWork) {
                                 var categoryOverlay = document.getElementById("categoryPageOverlay");
                                 openedFromCategoryPage = !!(categoryOverlay && categoryOverlay.classList.contains("open"));
+                                openedFromQuickWork = !!fromQuickWork;
 
                                 // A card can opt into a fully custom, hand-built subpage layout by
                                 // including a <template class="detail-custom"> — used for flagship
@@ -7616,6 +7339,19 @@
                                 var categoryOverlay = document.getElementById("categoryPageOverlay");
                                 var categoryOpen = categoryOverlay && categoryOverlay.classList.contains("open");
                                 if (!categoryOpen) document.body.classList.remove("no-scroll");
+
+                                // Opened via a "Quick Look" tile up near the hero? Land the
+                                // recruiter in the full Projects section on close instead of
+                                // leaving them stranded back where the tile was.
+                                if (openedFromQuickWork && !categoryOpen) {
+                                    var projectsSection = document.getElementById("projects");
+                                    if (projectsSection) {
+                                        setTimeout(function () {
+                                            projectsSection.scrollIntoView({ behavior: "smooth" });
+                                        }, 50);
+                                    }
+                                    openedFromQuickWork = false;
+                                }
 
                                 if (pushHistory !== false && location.hash.indexOf("#project/") === 0) {
                                     if (openedFromCategoryPage && categoryOpen) {
@@ -7843,10 +7579,8 @@
                                 inner.innerHTML = "";
                                 var detailOverlay = document.getElementById("projectDetailOverlay");
                                 var categoryOverlay = document.getElementById("categoryPageOverlay");
-                                var terminalOverlay = document.getElementById("terminalOverlay");
                                 var anyOtherOpen = detailOverlay.classList.contains("open") ||
-                                    categoryOverlay.classList.contains("open") ||
-                                    (terminalOverlay && terminalOverlay.classList.contains("open"));
+                                    categoryOverlay.classList.contains("open");
                                 if (!anyOtherOpen) document.body.classList.remove("no-scroll");
                             };
 
