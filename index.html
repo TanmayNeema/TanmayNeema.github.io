@@ -349,6 +349,27 @@
                 transition: transform 0.15s ease-out;
             }
 
+            /* ===================== SKILL TILE 3D =====================
+               The "Custom Editor Tools" style tiles in Technical Skills:
+               real mouse-tracked tilt (via initTiltEffect(".skill-tile", 16)
+               below), the label text raised on its own layer so it visibly
+               separates as the tile tilts, and a quick diagonal shine sweep
+               on hover for extra polish. Uses a background-position sweep
+               (not a clipped pseudo-element) specifically so nothing here
+               sets overflow/clip-path on the tile — either would force the
+               tile's 3D space flat and cancel the text's translateZ pop. */
+            .skill-tile {
+                background-image: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+                background-repeat: no-repeat;
+                background-size: 220% 220%;
+                background-position: -140% -140%;
+                transition: background-position 0.7s ease;
+            }
+
+            .skill-tile:hover {
+                background-position: 140% 140%;
+            }
+
             /* ===================== CARD LAYER DEPTH =====================
                Puts the title, badge, and tag chips on their own raised
                "layers" in the card's 3D space (the card already tilts via
@@ -600,9 +621,45 @@
                 opacity: 1;
             }
 
+            /* Holographic gloss sweep — layers on top of the spotlight glow
+               using the same cursor-tracked --sx/--sy, giving hovered cards
+               a "premium trading card" light-reflection feel to go with the
+               existing 3D tilt (see .tilt-card / initTiltEffect). */
+            .spotlight::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+                border-radius: inherit;
+                opacity: 0;
+                background: linear-gradient(115deg,
+                    transparent 30%,
+                    rgba(255, 255, 255, 0.14) 45%,
+                    rgba(255, 255, 255, 0.28) 50%,
+                    rgba(255, 255, 255, 0.14) 55%,
+                    transparent 70%);
+                background-size: 250% 250%;
+                background-position: var(--sx, 50%) var(--sy, 50%);
+                mix-blend-mode: overlay;
+                transition: opacity 0.25s ease;
+                pointer-events: none;
+            }
+
+            .spotlight:hover::after {
+                opacity: 1;
+            }
+
             .spotlight > * {
                 position: relative;
                 z-index: 1;
+            }
+
+            /* Hero's polaroid-style photo card: great on desktop, too tall
+               and redundant with the text above it on small screens. */
+            @media (max-width: 767px) {
+                .hero-profile-card {
+                    display: none;
+                }
             }
 
             /* ===================== MAGNETIC BUTTONS ===================== */
@@ -1538,6 +1595,16 @@
                 min-height: 220px;
                 text-align: center;
                 padding: 20px;
+                overflow: hidden;
+            }
+
+            .cp-hero-media video,
+            .cp-hero-media img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 13px;
+                cursor: zoom-in;
             }
 
             .cp-gif-placeholder svg,
@@ -2772,6 +2839,14 @@
                 height: 12rem
             }
 
+            .h-48 video,
+            .h-48 img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
             .h-5 {
                 height: 1.25rem
             }
@@ -2794,6 +2869,14 @@
 
             .min-h-\[40px\] {
                 min-height: 40px
+            }
+
+            .min-h-24 {
+                min-height: 6rem
+            }
+
+            .min-h-28 {
+                min-height: 7rem
             }
 
             .min-h-screen {
@@ -4566,7 +4649,7 @@
                     <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden py-12 md:py-20">
                         <div class="w-full px-4 md:max-w-[85vw] md:px-5 mx-auto relative z-10">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-28 items-center">
-                                <div class="flex justify-center md:justify-end order-2 md:order-1">
+                                <div class="flex justify-center md:justify-end order-2 md:order-1 hero-profile-card">
                                     <div class="relative w-full max-w-md md:max-w-lg" style="opacity: 1; transform: none;">
                                         <div class="relative bg-[#0F172A] rounded-[2rem] p-4 md:p-6 shadow-pop hover:shadow-pop-hover transition-shadow duration-200 z-10 border-4 border-blue-400 font-minecraft text-[16px] md:text-[20px]">
                                             <div class="relative w-full aspect-[4/5] bg-black rounded-2xl overflow-hidden border-4 border-blue-900 shadow-inner group">
@@ -4812,79 +4895,54 @@
                                         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-toon-card border-2 border-toon-blue rounded-full z-0"></div>
                                         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-toon-card border-2 border-toon-blue rounded-full z-0"></div>
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto -rotate-2 -translate-x-4 z-10">
-                                            <div class="relative w-full h-28 bg-toon-blue rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                            <div class="skill-tile relative w-full min-h-28 bg-toon-blue rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-lg pointer-events-none"></div>
-                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">Custom Editor Tools</h3>
+                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm">Custom Editor Tools</h3>
                                             </div>
                                         </div>
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto rotate-3 translate-x-6 z-10">
-                                            <div class="relative w-full h-28 bg-white rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                            <div class="skill-tile relative w-full min-h-28 bg-white rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-black/20 rounded-lg pointer-events-none"></div>
-                                                <h5 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">
+                                                <h5 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm">
                                                     Procedural<br>Generation
                                                 </h5>
                                             </div>
                                         </div>
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto -rotate-6 -translate-x-2 z-10">
-                                            <div class="relative w-full h-28 bg-toon-orange rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                            <div class="skill-tile relative w-full min-h-28 bg-toon-orange rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-lg pointer-events-none"></div>
-                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">AI Implementation</h3>
+                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm">AI Implementation</h3>
                                             </div>
                                         </div>
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto rotate-2 translate-x-4 z-10">
-                                            <div class="relative w-full h-28 bg-white rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                            <div class="skill-tile relative w-full min-h-28 bg-white rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-black/20 rounded-lg pointer-events-none"></div>
-                                                <h3 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">Game Optimization</h3>
+                                                <h3 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm">Game Optimization</h3>
                                             </div>
                                         </div>
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto -rotate-1 -translate-x-6 z-10">
-                                            <div class="relative w-full h-28 bg-toon-blue rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                            <div class="skill-tile relative w-full min-h-28 bg-toon-blue rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-lg pointer-events-none"></div>
-                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">VFX &amp; Particle Systems</h3>
+                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm">VFX &amp; Particle Systems</h3>
                                             </div>
                                         </div>
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto rotate-2 translate-x-4 z-10">
-                                            <div class="relative w-full h-28 bg-white rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                            <div class="skill-tile relative w-full min-h-28 bg-white rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-black/20 rounded-lg pointer-events-none"></div>
-                                <h3 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">Rigging &amp; Animation</h3>
+                                <h3 class="font-display text-xl text-black text-center uppercase leading-none drop-shadow-sm">Rigging &amp; Animation</h3>
                                             </div>
                                         </div>
                                         <div class="w-full max-w-full sm:max-w-[360px] mx-auto -rotate-3 -translate-x-3 z-10">
-                                            <div class="relative w-full h-28 bg-toon-orange rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                            <div class="skill-tile relative w-full min-h-28 bg-toon-orange rounded-xl shadow-pop hover:shadow-pop-hover flex items-center justify-center px-6 py-4 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 10px, black 10.5px), radial-gradient(circle at 100% 50%, transparent 10px, black 10.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
                                                 <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-lg pointer-events-none"></div>
-                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm whitespace-nowrap">Shader Development</h3>
+                                                <h3 class="font-display text-xl text-white text-center uppercase leading-none drop-shadow-sm">Shader Development</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Soft Skills-->
                                 <div class="lg:col-span-4 flex flex-col gap-12">
-                                    <div class="flex flex-col items-center justify-center flex-1">
-                                        <div class="w-full max-w-xs mx-auto text-center">
-                                            <h3 class="font-display text-2xl text-white mb-6">Soft Skills</h3>
-                                            <div class="flex flex-col gap-4">
-                                                <div class="w-full max-w-[320px] mx-auto rotate-3 translate-x-4 z-10">
-                                                    <div class="relative w-full h-24 bg-toon-blue rounded-lg shadow-pop hover:shadow-pop-hover flex items-center justify-center px-5 py-3 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 8px, black 8.5px), radial-gradient(circle at 100% 50%, transparent 8px, black 8.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
-                                                        <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-md pointer-events-none"></div>
-                                                        <h3 class="font-display text-base text-white text-center uppercase leading-tight drop-shadow-sm">SOLO DEVELOPMENT</h3>
-                                                    </div>
-                                                </div>
-                                                <div class="w-full max-w-[320px] mx-auto rotate-6 translate-x-6 z-10">
-                                                    <div class="relative w-full h-24 bg-toon-blue rounded-lg shadow-pop hover:shadow-pop-hover flex items-center justify-center px-5 py-3 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 8px, black 8.5px), radial-gradient(circle at 100% 50%, transparent 8px, black 8.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
-                                                        <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-md pointer-events-none"></div>
-                                                        <h3 class="font-display text-base text-white text-center uppercase leading-tight drop-shadow-sm">Cross-Disciplinary Thinking</h3>
-                                                    </div>
-                                                </div>
-                                                <div class="w-full max-w-[320px] mx-auto -rotate-3 -translate-x-4 z-10">
-                                                    <div class="relative w-full h-24 bg-white rounded-lg shadow-pop hover:shadow-pop-hover flex items-center justify-center px-5 py-3 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 8px, black 8.5px), radial-gradient(circle at 100% 50%, transparent 8px, black 8.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
-                                                        <div class="absolute inset-1 border-2 border-dashed border-black/20 rounded-md pointer-events-none"></div>
-                                                        <h3 class="font-display text-base text-black text-center uppercase leading-tight drop-shadow-sm">PROBLEM SOLVER</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-auto">
+                                    <div>
                                         <div class="text-center mb-6">
                                             <h2 class="font-display text-4xl text-white block mb-1">Core Arsenal</h2>
                                         </div>
@@ -5018,6 +5076,31 @@
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full object-contain filter brightness-90 grayscale-[20%] text-gray-200" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
                                                 </div>
                                                 <span class="text-[10px] text-gray-400 font-bold">Diversion</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center flex-1">
+                                        <div class="w-full max-w-xs mx-auto text-center">
+                                            <h3 class="font-display text-2xl text-white mb-6">Soft Skills</h3>
+                                            <div class="flex flex-col gap-4">
+                                                <div class="w-full max-w-[320px] mx-auto rotate-3 translate-x-4 z-10">
+                                                    <div class="relative w-full min-h-24 bg-toon-blue rounded-lg shadow-pop hover:shadow-pop-hover flex items-center justify-center px-5 py-3 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 8px, black 8.5px), radial-gradient(circle at 100% 50%, transparent 8px, black 8.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                                        <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-md pointer-events-none"></div>
+                                                        <h3 class="font-display text-base text-white text-center uppercase leading-tight drop-shadow-sm">SOLO DEVELOPMENT</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="w-full max-w-[320px] mx-auto rotate-6 translate-x-6 z-10">
+                                                    <div class="relative w-full min-h-24 bg-toon-blue rounded-lg shadow-pop hover:shadow-pop-hover flex items-center justify-center px-5 py-3 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 8px, black 8.5px), radial-gradient(circle at 100% 50%, transparent 8px, black 8.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                                        <div class="absolute inset-1 border-2 border-dashed border-white/50 rounded-md pointer-events-none"></div>
+                                                        <h3 class="font-display text-base text-white text-center uppercase leading-tight drop-shadow-sm">Cross-Disciplinary Thinking</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="w-full max-w-[320px] mx-auto -rotate-3 -translate-x-4 z-10">
+                                                    <div class="relative w-full min-h-24 bg-white rounded-lg shadow-pop hover:shadow-pop-hover flex items-center justify-center px-5 py-3 transform hover:scale-105 transition-transform transition-shadow duration-200" style="mask-image: radial-gradient(circle at 0px 50%, transparent 8px, black 8.5px), radial-gradient(circle at 100% 50%, transparent 8px, black 8.5px); mask-composite: intersect; -webkit-mask-composite: source-in; opacity: 1; transform: none;">
+                                                        <div class="absolute inset-1 border-2 border-dashed border-black/20 rounded-md pointer-events-none"></div>
+                                                        <h3 class="font-display text-base text-black text-center uppercase leading-tight drop-shadow-sm">PROBLEM SOLVER</h3>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -5989,19 +6072,120 @@
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 category-grid" data-category-grid="shaders">
                                     <!-- PLACEHOLDER: replace with your real cards -->
-                                    <div class="project-card placeholder-card bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop" data-category="shaders">
+                                    <div class="project-card spotlight bg-toon-card rounded-2xl border-4 border-black p-6 shadow-pop hover:shadow-pop-hover transition-shadow" data-category="shaders" data-featured="true">
+                                        <span class="featured-badge">★ Featured</span>
                                         <span class="category-pill">Shaders</span>
-                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black media-placeholder">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
-                                            <span>Media Coming Soon</span>
+                                        <div class="h-48 mb-4 overflow-hidden rounded-xl border-2 border-black">
+                                            <video src="assets/shaders/water-spray/water-vfx-loop.mp4" autoplay muted loop playsinline></video>
                                         </div>
-                                        <h3 class="font-display text-xl text-toon-blue mb-2">Shader — Coming Soon</h3>
-                                        <p class="text-gray-200 mb-6">Add your shader breakdowns here (Shader Graph, HLSL, VFX Graph work).</p>
+                                        <p class="text-gray-200 mb-6">A customizable water-trail shader built in Shader Graph for Unity's Particle System — time-based UV panning drives the fluid motion, depth-fade softens intersections with the ground, vertex color hooks into per-particle color/alpha, and normal mapping gives the flat trail real volumetric lighting.</p>
                                         <div class="flex flex-wrap gap-2 mb-4">
                                             <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Shader Graph</span>
-                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">HLSL</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity 6</span>
+                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">VFX</span>
                                         </div>
-                                        <button type="button" class="bg-white/10 border-2 border-black rounded-lg py-2 px-4 text-gray-400 font-display cursor-not-allowed" disabled>COMING SOON</button>
+                                        <!-- CUSTOM SUBPAGE: same tool-page pattern as the other Editor Tools projects. -->
+                                        <template class="detail-custom">
+                                            <div class="cp-section cp-hero">
+                                                <div class="cp-hero-media" style="padding:0;">
+                                                    <video src="assets/shaders/water-spray/water-vfx-loop.mp4" autoplay muted loop playsinline></video>
+                                                </div>
+                                                <div class="cp-hero-panel">
+                                                    <div class="cp-hero-title">Water Spray Shader &amp; VFX</div>
+                                                    <div class="cp-hero-field">
+                                                        <div class="cp-hero-label">Role</div>
+                                                        <div class="cp-hero-value">Technical Artist / VFX Artist</div>
+                                                    </div>
+                                                    <div class="cp-hero-field">
+                                                        <div class="cp-hero-label">Tech Stack</div>
+                                                        <div class="cp-stack-pills">
+                                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity 6</span>
+                                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Shader Graph</span>
+                                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Particle System</span>
+                                                            <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Normal Mapping</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cp-hero-field">
+                                                        <div class="cp-hero-label">Logline</div>
+                                                        <p class="cp-logline">A customizable water-trail shader built in Unity Shader Graph, designed to integrate directly with Unity's Particle System for dynamic fluid attacks and environmental effects — performant, artist-friendly, and built to blend seamlessly into any scene.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="cp-section">
+                                                <div class="cp-kicker">See It In Action</div>
+                                                <h2 class="cp-h2">Full Shader Walkthrough</h2>
+                                                <div class="cp-video-showcase">
+                                                    <video controls preload="metadata" src="assets/shaders/water-spray/water-vfx-v1.mp4"></video>
+                                                </div>
+                                            </div>
+
+                                            <div class="cp-section">
+                                                <div class="cp-kicker">Second Pass</div>
+                                                <h2 class="cp-h2">Alternate Splash Variant</h2>
+                                                <p class="cp-body-text">A second pass on the same shader with different tiling, panning speed, and splash texture tuning — same node graph, different feel.</p>
+                                                <div class="cp-video-showcase">
+                                                    <video controls preload="metadata" src="assets/shaders/water-spray/water-vfx-v2.mp4"></video>
+                                                </div>
+                                            </div>
+
+                                            <div class="cp-section">
+                                                <div class="cp-kicker">Key Technical Features</div>
+                                                <h2 class="cp-h2">How The Shader Works</h2>
+                                                <div class="cp-feature-grid cols-2" style="margin-top: 20px;">
+                                                    <div class="cp-feature-card">
+                                                        <div class="cp-feature-media"><img src="assets/shaders/water-spray/shader-uv-panning.png" alt="UV panning node graph"></div>
+                                                        <h4>Dynamic Flow via UV Panning</h4>
+                                                        <p>A Panner setup driven by Time continuously scrolls the UVs on the splash and trail textures, giving the water constant, realistic fluid motion instead of a static texture.</p>
+                                                    </div>
+                                                    <div class="cp-feature-card">
+                                                        <div class="cp-feature-media"><img src="assets/shaders/water-spray/shader-depth-fade.png" alt="Depth fade node graph"></div>
+                                                        <h4>Soft Intersections (Depth Fade)</h4>
+                                                        <p>Comparing Scene Depth against Screen Position, scaled by an exposed Fade Distance parameter, softens the alpha wherever the water meets opaque geometry like the floor — no harsh clipping lines.</p>
+                                                    </div>
+                                                    <div class="cp-feature-card">
+                                                        <div class="cp-feature-media"><img src="assets/shaders/water-spray/shader-particle-integration.png" alt="Vertex color / particle integration node graph"></div>
+                                                        <h4>Particle System Integration</h4>
+                                                        <p>The main texture and opacity outputs are multiplied against a Vertex Color node, letting Unity's Particle System directly drive the stream's color and fade its alpha out over each particle's lifetime.</p>
+                                                    </div>
+                                                    <div class="cp-feature-card">
+                                                        <div class="cp-feature-media"><img src="assets/shaders/water-spray/shader-normal-mapping.png" alt="Normal mapping node graph"></div>
+                                                        <h4>Surface Volume &amp; Lighting</h4>
+                                                        <p>Rather than a flat unlit texture, a sampled normal map is routed through an exposed Normal Strength parameter, catching scene lighting and giving the 2D water trail real volumetric feel.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="cp-feature-grid cols-1" style="margin-top: 18px;">
+                                                    <div class="cp-feature-card">
+                                                        <div class="cp-feature-media"><img src="assets/shaders/water-spray/shader-surface-inputs.png" alt="Exposed material properties panel"></div>
+                                                        <h4>Artist-Friendly Modularity</h4>
+                                                        <p>Key parameters — Fade Distance, Normal Strength, Tiling — are all exposed on the material, so other artists or designers on a team can tune the shader without ever opening the node graph. Alpha clipping thresholds keep droplet silhouettes crisp, and emissive multipliers help the VFX pop under different lighting.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="cp-section">
+                                                <div class="cp-kicker">Tools &amp; Tech</div>
+                                                <h2 class="cp-h2">Built With</h2>
+                                                <div class="cp-stack-pills">
+                                                    <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Unity 6</span>
+                                                    <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Shader Graph</span>
+                                                    <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Particle System (Vertex Color)</span>
+                                                    <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Scene Depth / Screen Position</span>
+                                                    <span class="px-2 py-1 text-xs bg-white/10 rounded-full border border-white/20">Normal Mapping</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="cp-section" style="text-align:center;">
+                                                <div class="cp-kicker">Get The Source</div>
+                                                <h2 class="cp-h2">Want To See The Graph?</h2>
+                                                <p class="cp-body-text" style="margin-bottom: 4px;">Source available on request.</p>
+                                                <a href="#contact" class="cp-cta-btn">
+                                                    Request Source
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                                </a>
+                                            </div>
+                                        </template>
+                                        <button type="button" class="project-open-btn bg-toon-blue border-2 border-black rounded-lg py-2 px-4 text-white font-display shadow-[2px_2px_0_black] hover:brightness-110" data-href="#" data-label="View Details">VIEW PROJECT</button>
                                     </div>
                                 </div>
                                 <div class="show-more-row" data-show-more-for="shaders">
@@ -6142,6 +6326,10 @@
                             </button>
                                             </div>
                                         </form>
+                                        <p id="contactFallback" class="font-hand text-black/70 font-bold text-lg mt-4 text-center">
+                                            Nothing happen? Email me directly — <a href="mailto:jaggi1250@gmail.com" class="underline hover:text-toon-blue">jaggi1250@gmail.com</a>
+                                        </p>
+                                        <p id="contactConfirm" class="font-hand text-black font-bold text-xl mt-3 text-center" style="display:none;">✓ Opening your email app now — didn't pop up? Use the address above.</p>
                                     </div>
                                 </div>
                             </div>
@@ -6266,9 +6454,16 @@
 
                             const subject = encodeURIComponent("Portfolio Contact from " + name);
                             const body = encodeURIComponent("Name: " + name + "\n" + "Email: " + email + "\n\n" + message);
+                            const mailtoUrl = "mailto:jaggi1250@gmail.com?subject=" + subject + "&body=" + body;
 
-                            window.location.href = "mailto:jaggi1250@gmail.com?subject=" + subject + "&body=" + body;
+                            // Open in a new tab rather than navigating the current
+                            // one — if the visitor has no default mail app set up,
+                            // only that blank tab is affected, not the portfolio.
+                            window.open(mailtoUrl, "_blank");
 
+                            var confirmEl = document.getElementById("contactConfirm");
+                            if (confirmEl) confirmEl.style.display = "block";
+                            if (typeof playUiSound === "function") playUiSound("success");
                         });
 
                         /* =====================================================
@@ -6545,66 +6740,74 @@
                             }
 
                             function step(now) {
-                                ctx.clearRect(0, 0, W, H);
+                                // Wrapped in try/finally so a stray error on any
+                                // one frame (bad input, browser quirk, etc.) can
+                                // never permanently kill the animation loop —
+                                // the next frame is always scheduled regardless.
+                                try {
+                                    ctx.clearRect(0, 0, W, H);
 
-                                for (var i = 0; i < particles.length; i++) {
-                                    var p = particles[i];
-                                    p.x += p.vx; p.y += p.vy;
-                                    if (p.x < 0 || p.x > W) p.vx *= -1;
-                                    if (p.y < 0 || p.y > H) p.vy *= -1;
+                                    for (var i = 0; i < particles.length; i++) {
+                                        var p = particles[i];
+                                        p.x += p.vx; p.y += p.vy;
+                                        if (p.x < 0 || p.x > W) p.vx *= -1;
+                                        if (p.y < 0 || p.y > H) p.vy *= -1;
+
+                                        if (mouse.active) {
+                                            var dx = p.x - mouse.x, dy = p.y - mouse.y;
+                                            var dist = Math.sqrt(dx * dx + dy * dy);
+                                            if (dist < 90 && dist > 0.01) {
+                                                var force = ((90 - dist) / 90) * 0.03;
+                                                p.vx += (dx / dist) * force;
+                                                p.vy += (dy / dist) * force;
+                                            }
+                                        }
+                                        p.vx *= 0.995; p.vy *= 0.995;
+
+                                        ctx.beginPath();
+                                        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                                        ctx.fillStyle = "rgba(148, 163, 184, 0.55)";
+                                        ctx.fill();
+                                    }
+
+                                    for (var a = 0; a < particles.length; a++) {
+                                        for (var b = a + 1; b < particles.length; b++) {
+                                            var pa = particles[a], pb = particles[b];
+                                            var ddx = pa.x - pb.x, ddy = pa.y - pb.y;
+                                            var d = Math.sqrt(ddx * ddx + ddy * ddy);
+                                            if (d < LINK_DIST) {
+                                                ctx.beginPath();
+                                                ctx.moveTo(pa.x, pa.y);
+                                                ctx.lineTo(pb.x, pb.y);
+                                                ctx.strokeStyle = "rgba(59, 130, 246," + (0.12 * (1 - d / LINK_DIST)) + ")";
+                                                ctx.lineWidth = 1;
+                                                ctx.stroke();
+                                            }
+                                        }
+                                    }
 
                                     if (mouse.active) {
-                                        var dx = p.x - mouse.x, dy = p.y - mouse.y;
-                                        var dist = Math.sqrt(dx * dx + dy * dy);
-                                        if (dist < 90 && dist > 0.01) {
-                                            var force = ((90 - dist) / 90) * 0.03;
-                                            p.vx += (dx / dist) * force;
-                                            p.vy += (dy / dist) * force;
+                                        for (var m = 0; m < particles.length; m++) {
+                                            var pm = particles[m];
+                                            var mdx = pm.x - mouse.x, mdy = pm.y - mouse.y;
+                                            var md = Math.sqrt(mdx * mdx + mdy * mdy);
+                                            if (md < MOUSE_DIST) {
+                                                ctx.beginPath();
+                                                ctx.moveTo(pm.x, pm.y);
+                                                ctx.lineTo(mouse.x, mouse.y);
+                                                ctx.strokeStyle = "rgba(249, 115, 22," + (0.22 * (1 - md / MOUSE_DIST)) + ")";
+                                                ctx.lineWidth = 1;
+                                                ctx.stroke();
+                                            }
                                         }
                                     }
-                                    p.vx *= 0.995; p.vy *= 0.995;
 
-                                    ctx.beginPath();
-                                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                                    ctx.fillStyle = "rgba(148, 163, 184, 0.55)";
-                                    ctx.fill();
+                                    if (bursts.length) drawBursts(now);
+                                } catch (err) {
+                                    if (window.console && console.warn) console.warn("bgNetwork frame error (recovered):", err);
+                                } finally {
+                                    requestAnimationFrame(step);
                                 }
-
-                                for (var a = 0; a < particles.length; a++) {
-                                    for (var b = a + 1; b < particles.length; b++) {
-                                        var pa = particles[a], pb = particles[b];
-                                        var ddx = pa.x - pb.x, ddy = pa.y - pb.y;
-                                        var d = Math.sqrt(ddx * ddx + ddy * ddy);
-                                        if (d < LINK_DIST) {
-                                            ctx.beginPath();
-                                            ctx.moveTo(pa.x, pa.y);
-                                            ctx.lineTo(pb.x, pb.y);
-                                            ctx.strokeStyle = "rgba(59, 130, 246," + (0.12 * (1 - d / LINK_DIST)) + ")";
-                                            ctx.lineWidth = 1;
-                                            ctx.stroke();
-                                        }
-                                    }
-                                }
-
-                                if (mouse.active) {
-                                    for (var m = 0; m < particles.length; m++) {
-                                        var pm = particles[m];
-                                        var mdx = pm.x - mouse.x, mdy = pm.y - mouse.y;
-                                        var md = Math.sqrt(mdx * mdx + mdy * mdy);
-                                        if (md < MOUSE_DIST) {
-                                            ctx.beginPath();
-                                            ctx.moveTo(pm.x, pm.y);
-                                            ctx.lineTo(mouse.x, mouse.y);
-                                            ctx.strokeStyle = "rgba(249, 115, 22," + (0.22 * (1 - md / MOUSE_DIST)) + ")";
-                                            ctx.lineWidth = 1;
-                                            ctx.stroke();
-                                        }
-                                    }
-                                }
-
-                                if (bursts.length) drawBursts(now);
-
-                                requestAnimationFrame(step);
                             }
 
                             if (!reduceMotion) requestAnimationFrame(step);
@@ -6878,8 +7081,9 @@
                            TILT-ON-HOVER — subtle 3D tilt following the cursor,
                            applied to project cards and the quick-look tiles.
                         ===================================================== */
-                        function initTiltEffect(selector) {
+                        function initTiltEffect(selector, maxAngle) {
                             if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+                            var angle = maxAngle || 8;
                             var els = Array.prototype.slice.call(document.querySelectorAll(selector));
                             els.forEach(function (el) {
                                 el.classList.add("tilt-card");
@@ -6887,8 +7091,8 @@
                                     var rect = el.getBoundingClientRect();
                                     var px = (e.clientX - rect.left) / rect.width - 0.5;
                                     var py = (e.clientY - rect.top) / rect.height - 0.5;
-                                    var rotateX = (-py * 8).toFixed(2);
-                                    var rotateY = (px * 8).toFixed(2);
+                                    var rotateX = (-py * angle).toFixed(2);
+                                    var rotateY = (px * angle).toFixed(2);
                                     el.style.transform = "perspective(700px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg) translateZ(0)";
                                 });
                                 el.addEventListener("mouseleave", function () {
@@ -6897,6 +7101,7 @@
                             });
                         }
                         initTiltEffect(".project-card");
+                        initTiltEffect(".skill-tile", 16);
 
                         /* =====================================================
                            CARD TITLE CURSOR-GLOW — wraps each project-card
@@ -7539,7 +7744,7 @@
                             var overlay = document.getElementById("mediaLightbox");
                             var inner = document.getElementById("mediaLightboxInner");
                             var closeBtn = document.getElementById("mediaLightboxClose");
-                            var triggerSelector = ".cp-video-showcase, .cp-feature-media, #projectDetailBody .detail-media";
+                            var triggerSelector = ".cp-video-showcase, .cp-feature-media, .cp-hero-media, #projectDetailBody .detail-media";
 
                             function openMediaLightbox(mediaEl) {
                                 inner.innerHTML = "";
